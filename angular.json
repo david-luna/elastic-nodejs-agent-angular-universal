@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/elastic-agent-angular-universal",
+            "outputPath": "dist/elastic-agent-angular-universal/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -97,6 +97,61 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/elastic-agent-angular-universal/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "elastic-agent-angular-universal:build:development",
+              "serverTarget": "elastic-agent-angular-universal:server:development"
+            },
+            "production": {
+              "browserTarget": "elastic-agent-angular-universal:build:production",
+              "serverTarget": "elastic-agent-angular-universal:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "elastic-agent-angular-universal:build:production",
+              "serverTarget": "elastic-agent-angular-universal:server:production"
+            },
+            "development": {
+              "browserTarget": "elastic-agent-angular-universal:build:development",
+              "serverTarget": "elastic-agent-angular-universal:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
