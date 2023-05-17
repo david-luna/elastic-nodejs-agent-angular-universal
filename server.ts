@@ -1,3 +1,7 @@
+// Gotcha!
+// https://www.elastic.co/guide/en/apm/agent/nodejs/current/starting-the-agent.html#start-typescript
+import 'elastic-apm-node/start';
+
 import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
